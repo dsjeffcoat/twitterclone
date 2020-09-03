@@ -6,3 +6,7 @@ from .models import TwitterUser
 
 def index(request):
     return render(request, 'index.html', {'user': request.user})
+
+
+def edit_profile(request):
+    pass

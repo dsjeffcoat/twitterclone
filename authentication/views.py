@@ -3,7 +3,7 @@ from .forms import LoginForm, RegisterForm
 from twitteruser.models import TwitterUser
 from twitteruser.forms import TwitterUserCreationForm
 from django.contrib.auth import login, logout, authenticate
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 

@@ -13,4 +13,4 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = TwitterUser
-        fields = ['display_name']
+        fields = ['display_name', 'bio']

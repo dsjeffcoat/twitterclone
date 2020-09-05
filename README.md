@@ -10,4 +10,4 @@ Matthew Perry assisted with getting the following and tweet count to show correc
 
 Edwin Torres & Sohail Aslam assisted during study hall with notifications (08/04/20)
 
-Edwin Torres assisted with fixing my following and feed functionality (08/05/20)
+Edwin Torres assisted with fixing my following, feed, and fixing notification functionality (08/05/20)

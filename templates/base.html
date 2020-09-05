@@ -22,21 +22,27 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Twitter Clone - Not To Be Confused with Real Twitter</title>
+    <title>TwitterClone - Not To Be Confused with Real Twitter</title>
   </head>
-  <body>
+  <body style="background-color: #292f33">
     <div class="container">
       <nav
         class="navbar navbar-expand-lg navbar-dark"
-        style="background-color: darkblue"
+        style="background-color: #55acee"
       >
         {% if request.user.is_authenticated %}
-        <a class="navbar-brand" href="/"
-          ><i class="fab fa-telegram-plane"></i> Twitter Clone</a
+        <a
+          class="navbar-brand"
+          href="/"
+          style="font-size: 24px; font-weight: bold"
+          ><i class="fab fa-telegram-plane"></i> TwitterClone</a
         >
         {% else %}
-        <a class="navbar-brand" href="/home/"
-          ><i class="fab fa-telegram-plane"></i> Twitter Clone</a
+        <a
+          class="navbar-brand"
+          href="/home/"
+          style="font-size: 24px; font-weight: bold"
+          ><i class="fab fa-telegram-plane"></i> TwitterClone</a
         >
         {% endif %}
         <button
@@ -56,16 +62,33 @@
         >
           {% if request.user.is_authenticated %}
           <div class="navbar-nav">
-            <a class="nav-link" href="/">Home</a>
-            <a class="nav-link" href="/create/">Create Tweet</a>
-            <a class="nav-link" href="#">Notifications</a>
-            <a class="nav-link" href="/profile/{{user.username}}/">Profile</a>
+            <a class="nav-link font-weight-bold" href="/">Home</a>
+            <a class="nav-link font-weight-bold" href="/create/"
+              >Create Tweet</a
+            >
+            {% if notifications %}
+            <a class="nav-link font-weight-bold" href="/notifications/"
+              >Notifications
+              <span class="badge badge-pill badge-light"
+                >{{notifications}}</span
+              ></a
+            >
+            {% else %}
+            <a class="nav-link font-weight-bold" href="/notifications/"
+              >Notifications</a
+            >
+            {% endif %}
+            <a
+              class="nav-link font-weight-bold"
+              href="/profile/{{request.user.username}}/"
+              >Profile</a
+            >
           </div>
           {% else %}
           <div class="navbar-nav">
-            <a class="nav-link" href="/home/">Home</a>
-            <a class="nav-link" href="/login/">Log In</a>
-            <a class="nav-link" href="/register/">Sign Up</a>
+            <a class="nav-link font-weight-bold" href="/home/">Home</a>
+            <a class="nav-link font-weight-bold" href="/login/">Log In</a>
+            <a class="nav-link font-weight-bold" href="/register/">Sign Up</a>
           </div>
           {% endif %}
         </div>

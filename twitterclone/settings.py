@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'twitteruser',
     'authentication',
     'tweet',
+    'notifications',
 ]
 
 MIDDLEWARE = [

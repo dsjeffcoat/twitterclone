@@ -1,45 +1,69 @@
 {% extends 'base.html' %} {% block content %}
 <br />
 <div class="card shadow-sm border-dark">
-    <div class="card-header text-white bg-dark">
-    <div class="card-text float-right">
-    <p class="card-text">Tweets: {{tweets.count}}</p>
-    <p class="card-text">Following: {{user.following.count}}</p>
+  <div class="card-header" style="background-color: #66757F">
+    <div class="card-text float-right text-white">
+      <p class="card-text">Tweets: {{tweets.count}}</p>
+      <p class="card-text">Following: {{user.following.count}}</p>
     </div>
-    <h5 class="card-title">{{user.display_name}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">
-      <a href="/profile/{{user.username}}/">@{{user.username}}</a>
-    </h6>
-    </div>
-  <div class="card-body">
-    <h4 class="card-text" style="font-style: italic">{{user.bio}}</h4>
-    {% if request.user.is_authenticated %}
-      {% if user.username != request.user.username %}
-        {% if user in following %}
-          <a class="btn btn-secondary float-right" href="/unfollow/{{user.username}}/" role="button">Unfollow</a>
-        {% else %}
-          <a class="btn btn-secondary float-right" href="/follow/{{user.username}}/" role="button">Follow</a>
-        {% endif %}
-      {% endif %}
-    <a class="btn btn-danger float-right" href="/logout/" role="button">Logout</a>
-    {% endif %}
+    <h3 class="card-title text-white">{{user.display_name}}</h3>
+    <h5 class="card-subtitle mb-2 text-muted">
+      <span class="badge badge-light"><a href="/profile/{{user.username}}/" class="text-dark">@{{user.username}}</a></span>
+    </h5>
   </div>
+  <div class="card-body" style="background-color: #CCD6DD">
+    {% if request.user.is_authenticated %}
+    <h4 class="card-text" style="font-style: italic">{{user.bio}}</h4>
+    <a class="btn btn-danger float-right" href="/logout/" role="button">
+      Logout
+    </a>
+    {% if user.username != request.user.username %} {% if user in following %}
+    <a
+      class="btn btn-secondary float-right"
+      style="margin-right: 2px;"
+      href="/unfollow/{{user.username}}/"
+      role="button"
+      >Unfollow</a
+    >
+    {% else %}
+    <a
+      class="btn float-right text-white"
+      style="background-color: #55ACEE; margin-right: 2px;"
+      href="/follow/{{user.username}}/"
+      role="button"
+    >
+      Follow
+    </a></span>
+    {% endif %} {% endif %}
+    </div>
+    {% else %}
+    <h4 class="card-text" style="font-style: italic">{{user.bio}}</h4>
+  </div>
+  {% endif %}
 </div>
-<br>
+<br />
 
 {% for tweet in tweets %}
-<div class="card text-white shadow-sm" style="background-color: darkblue">
-  <div class="card-header border-light">
-    <i class="fab fa-telegram-plane"></i>
-    <span class="text-right"><a href="/profile/{{user.username}}/">@{{user.username}}</a></span>
+<div class="card shadow-sm">
+  <div class="card-header text-white border-light" style="background-color: #55ACEE">
+    <i class="fab fa-telegram-plane float-right"></i>
+    <span class="badge badge-inherit text-light"
+      ><a href="/profile/{{user.username}}/" style="color: inherit; font-weight: bold; font-size: 20px">{{user.display_name}}</a></span
+    >
+    <span class="text-muted" style="color: #66757f"
+      ><a href="/profile/{{tweet.user.username}}/" style="color: inherit"
+        >@{{tweet.user.username}}</a
+      ></span
+    >
   </div>
-  <div class="card-body">
+  <div class="card-body" style="background-color: #E1E8ED">
     <blockquote class="blockquote mb-0">
       <p>{{ tweet.tweet }}</p>
-      <footer class="blockquote-footer text-white float-right">{{tweet.time}}</cite></footer>
+      <footer class="blockquote-footer float-right">
+        <cite>{{tweet.time}}</cite> | <a href="/tweet/{{tweet.id}}/">Link</a>
+      </footer>
     </blockquote>
   </div>
 </div>
-<br>
-{% endfor %}
-{% endblock %}
+<br />
+{% endfor %} {% endblock %}

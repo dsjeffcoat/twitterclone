@@ -1,20 +1,4 @@
-{% extends 'base.html' %} {% block content %} {% if user.is_authenticated %}
-<br />
-<div class="card" style="width: 18rem">
-  <div class="card-body">
-    <h5 class="card-title">{{user.display_name}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">
-      <a href="#">@{{user.username}}</a>
-    </h6>
-    <p class="card-text" style="font-style: italic">{{user.bio}}</p>
-    <p class="card-text">Tweets: {{user.tweets}}</p>
-    <p class="card-text">Following: {{user.following}}</p>
-    <a href="#" class="card-link">Edit Profile</a>
-    <a href="/logout/" class="card-link">Logout</a>
-  </div>
-</div>
-
-{% else %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
@@ -52,5 +36,4 @@
     </div>
   </div>
 </div>
-
-{% endif %} {% endblock %}
+{% endblock %}

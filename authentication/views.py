@@ -16,7 +16,7 @@ def login_view(request):
                 'username'), password=data.get('password'))
             if user:
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next', reverse('homepage')))
+                return HttpResponseRedirect(request.GET.get('next', reverse('dashboard')))
 
     form = LoginForm()
     return render(request, 'login.html', {'form': form})
@@ -35,7 +35,7 @@ def register_view(request):
             new_user = TwitterUser.objects.create_user(username=data.get(
                 'username'), password=data.get('password'), display_name=data.get('display_name'))
             login(request, new_user)
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(reverse('dashboard'))
 
     form = RegisterForm()
     return render(request, 'register.html', {'form': form})

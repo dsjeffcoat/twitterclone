@@ -5,19 +5,12 @@
 <br />
 <div class="card shadow-sm border-dark">
     <div class="card-header text-white bg-dark">
-    <div class="card-text float-right">
-    <p class="card-text">Tweets: {{feed.count}}</p>
-    <p class="card-text">Following: {{user.following.count}}</p>
-    </div>
+    <a class="btn btn-danger float-right" href="/logout/" role="button">Logout</a>
     <h5 class="card-title">{{user.display_name}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">
       <a href="/profile/{{user.username}}/">@{{user.username}}</a>
     </h6>
     </div>
-  <div class="card-body">
-    <p class="card-text" style="font-style: italic">{{user.bio}}</p>
-    <a class="btn btn-danger float-right" href="/logout/" role="button">Logout</a>
-  </div>
 </div>
 <br>
 {% if not feed %}
@@ -26,14 +19,11 @@
 </div>
 {% else %}
 
-{% endif %}
-
-
 {% for tweet in feed %}
 <div class="card text-white shadow-sm" style="background-color: darkblue">
   <div class="card-header border-light">
     <i class="fab fa-telegram-plane"></i>
-    <span class="text-right"><a href="/profile/{{user.username}}/">@{{user.username}}</a></span>
+    <span class="text-right"><a href="/profile/{{tweet.user.username}}/">@{{tweet.user.username}}</a></span>
   </div>
   <div class="card-body">
     <blockquote class="blockquote mb-0">
@@ -43,7 +33,10 @@
   </div>
 </div>
 <br>
+
+
 {% endfor %}
+{% endif %}
 
 
 

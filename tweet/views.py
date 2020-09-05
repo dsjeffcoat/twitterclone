@@ -13,8 +13,11 @@ def homepage(request):
 
 @login_required
 def dashboard(request):
-    all_tweets = Tweet.objects.filter(user=request.user).order_by('-time')
-    return render(request, 'dashboard.html', {'feed': all_tweets})
+    user = Tweet.objects.filter(user=request.user)
+    following = Tweet.objects.filter(user__in=request.user.following.all())
+    feed = user | following
+    feed = feed.order_by('-time')
+    return render(request, 'dashboard.html', {'feed': feed})
 
 
 @login_required
@@ -34,16 +37,25 @@ def create_tweet(request):
 
 
 def profile_detail(request, username):
-    user = TwitterUser.objects.get(username=username)
-    tweets = Tweet.objects.filter(user=user)
-    return render(request, 'profile.html', {'user': user, 'tweets': tweets})
+    user = TwitterUser.objects.filter(username=username).first()
+    tweets = Tweet.objects.filter(user=user).order_by('-time')
+    # TODO: Add Notification count here
+    if request.user.is_authenticated:
+        following = request.user.following.all()
+    else:
+        following = []
+    return render(request, 'profile.html', {'user': user, 'tweets': tweets, 'following': following})
 
 
 def follow_view(request, username):
-    pass
-    # current_user = request.user
-    # follow =
+    current_user = request.user
+    follow_user = TwitterUser.objects.filter(username=username).first()
+    current_user.following.add(follow_user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def unfollow_view(request, username):
-    pass
+    current_user = request.user
+    follow_user = TwitterUser.objects.filter(username=username).first()
+    current_user.following.remove(follow_user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

@@ -15,7 +15,8 @@ class TwitterUserAdmin(UserAdmin):
             'User Information', {
                 'fields': (
                     'display_name',
-                    'bio'
+                    'bio',
+                    'following'
                 )
             }
         )

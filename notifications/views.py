@@ -3,22 +3,38 @@ from twitteruser.models import TwitterUser
 from tweet.models import Tweet
 from .models import Notification
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
 
-@login_required
-def notification_view(request):
-    tweets = Notification.objects.filter(mentioned=request.user)
-    notification_count = 0
-    notif_list = []
-    for tweet in tweets:
-        if tweet.mark_as_read == False:
-            notification_count += 1
-            notif_list.append(tweet.mention_tweet)
-            tweet.mark_as_read = True
-            tweet.save()
-    return render(request, 'notifications.html', {'mentions': notif_list, 'count': notification_count})
+class NotificationView(LoginRequiredMixin, TemplateView):
+    def get(self, request):
+        tweets = Notification.objects.filter(mentioned=request.user)
+        notification_count = 0
+        notif_list = []
+        for tweet in tweets:
+            if tweet.mark_as_read == False:
+                notification_count += 1
+                notif_list.append(tweet.mention_tweet)
+                tweet.mark_as_read = True
+                tweet.save()
+        return render(request, 'notifications.html', {'mentions': notif_list, 'count': notification_count})
+
+
+# @login_required
+# def notification_view(request):
+#     tweets = Notification.objects.filter(mentioned=request.user)
+#     notification_count = 0
+#     notif_list = []
+#     for tweet in tweets:
+#         if tweet.mark_as_read == False:
+#             notification_count += 1
+#             notif_list.append(tweet.mention_tweet)
+#             tweet.mark_as_read = True
+#             tweet.save()
+#     return render(request, 'notifications.html', {'mentions': notif_list, 'count': notification_count})
 
 
 def notification_count_view(request):
